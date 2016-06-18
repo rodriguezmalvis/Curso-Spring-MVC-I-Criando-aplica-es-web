@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,8 +20,14 @@
 		</div>
 		<div>
 			<label>Páginas</label>
-			<input name="paginas">
+			<input type="text" name="paginas">
 		</div>
+		<c:forEach items="${tipos }" var="tipopreco" varStatus="status">
+			<label>${tipopreco }</label>
+			<input type="text" name="precos[${status.index }].valor">
+			<input type="hidden" name="precos[${status.index }].tipo" value="${tipopreco }">
+			<br>
+		</c:forEach>
 		<button type="submit">Cadastrar</button>
 	</form>
 

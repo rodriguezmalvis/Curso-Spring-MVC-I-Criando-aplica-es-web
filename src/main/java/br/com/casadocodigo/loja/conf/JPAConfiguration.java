@@ -22,22 +22,23 @@ public class JPAConfiguration {
 		JpaVendorAdapter vendoradapter = new HibernateJpaVendorAdapter();
 		factorybean.setJpaVendorAdapter(vendoradapter);
 		
-//		DriverManagerDataSource datasource = new DriverManagerDataSource();
-//		datasource.setUsername("root");
-//		datasource.setPassword("");
-//		datasource.setUrl("jdbc:mysql://localhost:3306/casadocodigo");
-//		datasource.setDriverClassName("com.mysql.jdbc.Driver");
-		
 		DriverManagerDataSource datasource = new DriverManagerDataSource();
+		datasource.setUsername("root");
+		datasource.setPassword("");
+		datasource.setUrl("jdbc:mysql://localhost:3306/casadocodigo");
+		datasource.setDriverClassName("com.mysql.jdbc.Driver");
+		
+		/*DriverManagerDataSource datasource = new DriverManagerDataSource();
 		datasource.setUsername("sa");
 		datasource.setPassword("cetin&2009");
 		datasource.setUrl("jdbc:sqlserver://localhost:1433;databaseName=casadocodigo");
-		datasource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		datasource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");*/
 		
 		factorybean.setDataSource(datasource);
 		
 		Properties props = new Properties();
-		props.setProperty("hibernate.dialect", "org.hibernate.dialect.SQLServerDialect");
+		props.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+		//props.setProperty("hibernate.dialect", "org.hibernate.dialect.SQLServerDialect");
 		props.setProperty("hibernate.show_sql", "true");
 		props.setProperty("hibernate.hbm2ddl.auto", "update");
 		

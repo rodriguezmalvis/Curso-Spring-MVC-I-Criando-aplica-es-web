@@ -1,11 +1,12 @@
 package br.com.casadocodigo.loja.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class Preco {
+public class Preco implements Serializable{
 	
 	private BigDecimal valor;
 	private TipoPreco tipo;

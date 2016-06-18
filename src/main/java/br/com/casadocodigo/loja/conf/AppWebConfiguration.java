@@ -4,28 +4,35 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.format.datetime.DateFormatterRegistrar;
 import org.springframework.format.support.FormattingConversionService;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import br.com.casadocodigo.loja.controllers.HomeControler;
+import br.com.casadocodigo.loja.converters.IntegerToStringConverter;
 import br.com.casadocodigo.loja.daos.ProdutoDao;
 import br.com.casadocodigo.loja.infra.FileSaver;
+import br.com.casadocodigo.loja.model.CarrinhoCompras;
 
 @EnableWebMvc
-@ComponentScan(basePackageClasses={HomeControler.class,ProdutoDao.class,FileSaver.class})
-public class AppWebConfiguration {
+@ComponentScan(basePackageClasses={HomeControler.class,ProdutoDao.class,FileSaver.class,CarrinhoCompras.class})
+public class AppWebConfiguration extends WebMvcConfigurerAdapter{
 
 	@Bean // CONFIGURACOES SPRING DO VIEW RESOLVER
 	public InternalResourceViewResolver internalResourceViewResolver(){
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 		resolver.setPrefix("/WEB-INF/views/");
 		resolver.setSuffix(".jsp");
+		// DISPONIBILIZA O BEAN PARA ACESSO DESDE A JSP
+		resolver.setExposedContextBeanNames("carrinhoCompras");
 		
 		return resolver;
 	}
@@ -57,6 +64,17 @@ public class AppWebConfiguration {
 	@Bean //CONFIGURACAO PARA ATIVAR RESOLVER DE REQUISICOES MULTIPART NO SERVLET (VER CONFIGURACOES ServletSpringMVC TB)
 	public MultipartResolver multipartResolver(){
 		return new StandardServletMultipartResolver();
+	}
+	
+	@Bean
+	public RestTemplate restTemplate(){
+		return new RestTemplate();
+	}
+	
+	@Override
+	public void addFormatters(FormatterRegistry registry) {
+		registry.addConverter(new IntegerToStringConverter());
+		super.addFormatters(registry);
 	}
 	
 }

@@ -2,7 +2,6 @@ package br.com.casadocodigo.loja.controllers;
 
 import java.util.List;
 
-import javax.jws.WebParam;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,5 +79,11 @@ public class ProdutosController {
 		modelAndView.addObject("produto", produto);
 		return modelAndView;
 	}
+	
+	/*@RequestMapping("/{id}")
+	@ResponseBody
+	public Produto detalheJson(@PathVariable("id") Integer id){
+		return produtodao.find(id);
+	}*/
 	
 }

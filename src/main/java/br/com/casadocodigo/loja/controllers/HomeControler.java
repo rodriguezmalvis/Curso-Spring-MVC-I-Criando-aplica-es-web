@@ -3,6 +3,7 @@ package br.com.casadocodigo.loja.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ public class HomeControler {
 	private ProdutoDao dao;
 	
 	@RequestMapping("/")
+	@Cacheable(value="produtosHome")
 	public ModelAndView index(){
 		List<Produto> produtos = dao.lista();
 		ModelAndView model = new ModelAndView("home");

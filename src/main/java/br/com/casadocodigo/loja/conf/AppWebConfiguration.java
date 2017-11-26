@@ -1,11 +1,15 @@
 package br.com.casadocodigo.loja.conf;
 
+import java.util.concurrent.TimeUnit;
+
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.guava.GuavaCacheManager;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.format.datetime.DateFormatterRegistrar;
 import org.springframework.format.support.FormattingConversionService;
@@ -16,6 +20,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import com.google.common.cache.CacheBuilder;
+
 import br.com.casadocodigo.loja.controllers.HomeControler;
 import br.com.casadocodigo.loja.converters.IntegerToStringConverter;
 import br.com.casadocodigo.loja.daos.ProdutoDao;
@@ -24,6 +30,7 @@ import br.com.casadocodigo.loja.model.CarrinhoCompras;
 
 @EnableWebMvc
 @ComponentScan(basePackageClasses={HomeControler.class,ProdutoDao.class,FileSaver.class,CarrinhoCompras.class})
+@EnableCaching
 public class AppWebConfiguration extends WebMvcConfigurerAdapter{
 
 	@Bean // CONFIGURACOES SPRING DO VIEW RESOLVER
@@ -75,6 +82,19 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter{
 	public void addFormatters(FormatterRegistry registry) {
 		registry.addConverter(new IntegerToStringConverter());
 		super.addFormatters(registry);
+	}
+	
+	@Bean //ATIVANDO O CACHE MANAGER DO SPRING
+	public CacheManager cacheManager() {
+		
+		CacheBuilder<Object,Object> cachebuilder = CacheBuilder.newBuilder()
+			.maximumSize(100)
+			.expireAfterAccess(5, TimeUnit.MINUTES);
+		
+		GuavaCacheManager cacheManager = new GuavaCacheManager();
+		cacheManager.setCacheBuilder(cachebuilder);
+		
+		return cacheManager;
 	}
 	
 }

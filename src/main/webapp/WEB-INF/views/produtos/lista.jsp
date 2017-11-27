@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,12 +25,17 @@
 	  </button>
 	  <div class="collapse navbar-collapse" id="navbarNav">
 	    <ul class="navbar-nav">
-	      <li class="nav-item active">
+	      <li class="nav-item">
 	        <a class="nav-link" href="${s:mvcUrl('PC#listar').build() }">Lista de produtos</a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="${s:mvcUrl('PC#form').build() }">Cadastro de produtos</a>
 	      </li>
+	    </ul>
+	    <ul class="navbar-nav ml-auto">
+	    	<li>
+	    		<a class="nav-link" href="#">Bem-vindo: <security:authentication property="principal.username"/></a>
+	    	</li>
 	    </ul>
 	  </div>
 	</nav>

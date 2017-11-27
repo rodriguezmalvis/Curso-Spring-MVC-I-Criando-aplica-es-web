@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -155,7 +156,7 @@
 		<div id="navegacaoCabecalho" class="cabecalhoPrincipal-navegacao">
 			<div class="cabecalhoPrincipal-categoriasEBusca" role="presentation">
 				<nav role="navigation" aria-label="Categorias de livros" class="colecoesDaCDC">
-					
+					<security:authorize access="hasRole('ROLE_ADMIN')">
 						<li class="colecoesDaCDC-colecaoItem">
 							<a href="${s:mvcUrl('PC#listar').build() }" class="colecoesDaCDC-colecaoLink">
 								Lista de Produtos
@@ -167,7 +168,7 @@
 								Cadastro de Produtos
 							</a>
 						</li>
-					
+					</security:authorize>
 				</nav>
 				<form role="search"
 					  aria-labelledby="rotuloBuscaPrincipal"

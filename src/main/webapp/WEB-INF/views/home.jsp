@@ -157,38 +157,14 @@
 				<nav role="navigation" aria-label="Categorias de livros" class="colecoesDaCDC">
 					
 						<li class="colecoesDaCDC-colecaoItem">
-							<a href="/collections/livros-de-java" class="colecoesDaCDC-colecaoLink">
-								Java
+							<a href="${s:mvcUrl('PC#listar').build() }" class="colecoesDaCDC-colecaoLink">
+								Lista de Produtos
 							</a>
 						</li>
-					
+						
 						<li class="colecoesDaCDC-colecaoItem">
-							<a href="/collections/livros-de-desenvolvimento-web" class="colecoesDaCDC-colecaoLink">
-								Web
-							</a>
-						</li>
-					
-						<li class="colecoesDaCDC-colecaoItem">
-							<a href="/collections/livros-de-front-e-design" class="colecoesDaCDC-colecaoLink">
-								Front e Design
-							</a>
-						</li>
-					
-						<li class="colecoesDaCDC-colecaoItem">
-							<a href="/collections/livros-de-games" class="colecoesDaCDC-colecaoLink">
-								Games
-							</a>
-						</li>
-					
-						<li class="colecoesDaCDC-colecaoItem">
-							<a href="/collections/livros-de-mobile" class="colecoesDaCDC-colecaoLink">
-								Mobile
-							</a>
-						</li>
-					
-						<li class="colecoesDaCDC-colecaoItem">
-							<a href="/collections/livros-de-startups" class="colecoesDaCDC-colecaoLink">
-								Startups
+							<a href="${s:mvcUrl('PC#form').build() }" class="colecoesDaCDC-colecaoLink">
+								Cadastro de Produtos
 							</a>
 						</li>
 					

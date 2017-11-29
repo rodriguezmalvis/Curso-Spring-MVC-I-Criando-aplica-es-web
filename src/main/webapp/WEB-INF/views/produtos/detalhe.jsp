@@ -290,7 +290,7 @@
 </header>
 
 	
-<form action='<c:url value="/carrinho/add"/>' method="POST" class="adicionarAoCarrinho">
+<form:form servletRelativeAction="/carrinho/add" method="POST" class="adicionarAoCarrinho">
 	<ul class="adicionarAoCarrinho-listaOfertas">
 	
 		<input type="hidden" value="${produto.id }" name="produtoId"/>
@@ -321,7 +321,7 @@
 		</c:forEach>
 			
 	</ul>
-</form>
+</form:form>
 <script>
     (function() {
     	var buttons = document.getElementsByClassName("adicionarAoCarrinho-botaoComprar");

@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.util.AntPathMatcher;
 
 import br.com.casadocodigo.loja.daos.UsuarioDao;
 
@@ -20,13 +22,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 		.antMatchers("/produtos/form").hasRole("ADMIN")
-		.antMatchers("/carrinho").permitAll()
+		.antMatchers("/carrinho/**").permitAll()
 		.antMatchers(HttpMethod.POST, "/produtos").hasAnyRole("ADMIN")
 		.antMatchers(HttpMethod.GET, "/produtos").hasAnyRole("ADMIN")
 		.antMatchers("/produtos/**").permitAll()
 		.antMatchers("/").permitAll()
 		.anyRequest().authenticated()
-		.and().formLogin();
+		.and().formLogin().loginPage("/login").permitAll()
+	    .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("**/logout"));
 	}
 	
 	@Override
